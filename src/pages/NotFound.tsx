@@ -1,10 +1,7 @@
-import React from 'react'
-
-type Props = {}
-
-const NotFound = (props: Props) => {
+import NotFoundBlock from "../components/NotFound/NotFoundBlock"
+const NotFound = () => {
   return (
-    <div>NotFound</div>
+    <NotFoundBlock />
   )
 }
 
