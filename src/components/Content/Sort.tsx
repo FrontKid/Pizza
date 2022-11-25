@@ -1,16 +1,26 @@
 import { v4 as getRandomKey } from 'uuid'
 import { useState } from "react"
+const popUpList = [
+  { name: 'популярности (DESC)', sort: 'rating' },
+  { name: 'популярности (ASC)', sort: '-rating' },
+  { name: 'цене (DESC)', sort: 'price' },
+  { name: 'цене (ASC)', sort: '-price' },
+  { name: 'алфавиту (DESC)', sort: 'title' },
+  { name: 'алфавиту (ASC)', sort: '-title' },
+]
 
-const popUpList = ['популярности', 'цене', 'алфавиту']
+type TSort = {
+  sortType: any,
+  onClickSort: any
+}
 
-const Sort = () => {
+const Sort = ({ sortType, onClickSort }: TSort) => {
+
 
   const [isVissible, setIsVissible] = useState<boolean>(false)
-  const [activeIndex, setActiveIndex] = useState<number>(0)
-  const sortItem: string = popUpList[activeIndex]
 
-  const clickedListItem = (index: number) => {
-    setActiveIndex(index)
+  const clickedListItem = (obj: any) => {
+    onClickSort(obj)
     setIsVissible(false)
   }
 
@@ -30,17 +40,17 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVissible(!isVissible)}>{sortItem}</span>
+        <span onClick={() => setIsVissible(!isVissible)}>{sortType.name}</span>
       </div>
       {isVissible && (
         <div className="sort__popup">
           <ul>
-            {popUpList.map((item, i) => (
+            {popUpList.map((obj) => (
               <li
                 key={getRandomKey()}
-                onClick={() => clickedListItem(i)}
-                className={activeIndex === i ? 'active' : ''}
-              >{item}</li>
+                onClick={() => clickedListItem(obj)}
+                className={sortType.sort === obj.sort ? 'active' : ''}
+              >{obj.name}</li>
             ))}
           </ul>
         </div>)}

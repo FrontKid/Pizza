@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { v4 as getRandomKey } from 'uuid'
-const categories = [
+const categories: string[] = [
   'Все',
   'Мясные',
   'Вегетарианская',
@@ -9,13 +9,12 @@ const categories = [
   'Закрытые',
 ]
 
-const Catigories = () => {
+export type TCategories = {
+  categoryId: number,
+  onClickCategory: any
+}
 
-  const [categoryIndex, setCategoriIndex] = useState(0)
-
-  const getIndex = (index: number): void => {
-    setCategoriIndex(index)
-  }
+const Catigories = ({ categoryId, onClickCategory }: TCategories) => {
 
   return (
     <div className="categories">
@@ -23,8 +22,8 @@ const Catigories = () => {
         {categories.map((categorie, i) => (
           <li
             key={getRandomKey()}
-            onClick={_ => getIndex(i)}
-            className={categoryIndex === i ? 'active' : ''}>{categorie}</li>
+            onClick={_ => onClickCategory(i)}
+            className={categoryId === i ? 'active' : ''}>{categorie}</li>
         ))}
       </ul>
     </div>
