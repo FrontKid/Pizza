@@ -1,0 +1,37 @@
+.root {
+  position: relative;
+  left: -120px;
+  .search {
+    position: absolute;
+    font-size: 23px;
+    left: 8px;
+    top: 50%;
+    opacity: 0.6;
+    transform: translateY(-50%);
+  }
+  .close {
+    font-size: 23px;
+    position: absolute;
+    opacity: 0.6;
+    right: 15px;
+    box-sizing: content-box;
+    padding: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 12px 5px 12px 35px;
+    font-size: 20px;
+    width: 450px;
+    border-radius: 10px;
+    transition: width 0.15s ease-in-out;
+    &:focus {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
