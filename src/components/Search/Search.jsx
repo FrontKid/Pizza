@@ -1,21 +1,41 @@
-import { useContext } from 'react'
+import { useCallback, useContext, useRef, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
+import debounce from 'lodash.debounce'
 import { SearchContext } from '../../App'
 import { IoMdClose } from 'react-icons/io'
 import styles from './Search.module.scss'
 const Search = () => {
-  const { searchValue, setSearchValue } = useContext(SearchContext)
+  const { setSearchValue } = useContext(SearchContext)
+  const [value, setValue] = useState('')
+  const inputRef = useRef()
+  const onClickCLear = () => {
+    setSearchValue('')
+    setValue('')
+    inputRef.current.focus()
+  }
 
+  const updateSearchValue = useCallback(
+    debounce(str => {
+      setSearchValue(str)
+    }, 700),
+    [],
+  )
+
+  const onChangeInput = (e) => {
+    setValue(e.currentTarget.value)
+    updateSearchValue(e.currentTarget.value)
+  }
   return (
     <div className={styles.root}>
       <CiSearch className={styles.search} />
       <input
-        value={searchValue}
-        onChange={e => setSearchValue(e.currentTarget.value)}
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         placeholder="Поиск пиццы..." />
-      {searchValue &&
+      {value &&
         <IoMdClose
-          onClick={() => setSearchValue('')}
+          onClick={onClickCLear}
           className={styles.close} />}
     </div>
   )

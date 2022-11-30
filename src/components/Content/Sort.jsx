@@ -1,5 +1,8 @@
 import { v4 as getRandomKey } from 'uuid'
 import { useState } from "react"
+import { useSelector, useDispatch } from 'react-redux'
+
+import { setSortType } from '../../redux/slices/filterSlice'
 const popUpList = [
   { name: 'популярности (DESC)', sort: 'rating' },
   { name: 'популярности (ASC)', sort: '-rating' },
@@ -9,18 +12,17 @@ const popUpList = [
   { name: 'алфавиту (ASC)', sort: '-title' },
 ]
 
-type TSort = {
-  sortType: any,
-  onClickSort: any
-}
-
-const Sort = ({ sortType, onClickSort }: TSort) => {
 
 
-  const [isVissible, setIsVissible] = useState<boolean>(false)
+const Sort = () => {
 
-  const clickedListItem = (obj: any) => {
-    onClickSort(obj)
+  const dispatch = useDispatch()
+  const sort = useSelector((state) => state.filterReducer.sort)
+  const [isVissible, setIsVissible] = useState(false)
+
+  const clickedListItem = (obj) => {
+    console.log(obj);
+    dispatch(setSortType(obj))
     setIsVissible(false)
   }
 
@@ -40,7 +42,7 @@ const Sort = ({ sortType, onClickSort }: TSort) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsVissible(!isVissible)}>{sortType.name}</span>
+        <span onClick={() => setIsVissible(!isVissible)}>{sort.name}</span>
       </div>
       {isVissible && (
         <div className="sort__popup">
@@ -49,7 +51,7 @@ const Sort = ({ sortType, onClickSort }: TSort) => {
               <li
                 key={getRandomKey()}
                 onClick={() => clickedListItem(obj)}
-                className={sortType.sort === obj.sort ? 'active' : ''}
+                className={sort.sort === obj.sort ? 'active' : ''}
               >{obj.name}</li>
             ))}
           </ul>
