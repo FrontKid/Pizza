@@ -41,7 +41,10 @@
     height: 32px;
     min-width: 32px;
     padding: 0;
-    border-width: 2px;
+    border: 2px solid #d0d0d0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
   }
 
   &--black {

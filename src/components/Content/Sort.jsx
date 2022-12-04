@@ -1,9 +1,9 @@
 import { v4 as getRandomKey } from 'uuid'
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setSortType } from '../../redux/slices/filterSlice'
-const popUpList = [
+export const popUpList = [
   { name: 'популярности (DESC)', sort: 'rating' },
   { name: 'популярности (ASC)', sort: '-rating' },
   { name: 'цене (DESC)', sort: 'price' },
@@ -19,15 +19,30 @@ const Sort = () => {
   const dispatch = useDispatch()
   const sort = useSelector((state) => state.filterReducer.sort)
   const [isVissible, setIsVissible] = useState(false)
-
+  const sortArea = useRef()
   const clickedListItem = (obj) => {
-    console.log(obj);
     dispatch(setSortType(obj))
     setIsVissible(false)
   }
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const path = e.path || (e.composedPath && e.composedPath());
+      if (!path.includes(sortArea.current)) {
+        setIsVissible(false)
+      }
+    }
+    document.body.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div className="sort">
+    <div
+      ref={sortArea}
+      className="sort">
       <div className="sort__label">
         <svg
           width="10"
