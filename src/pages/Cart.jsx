@@ -3,11 +3,12 @@ import { v4 as getRandomKey } from 'uuid'
 import { clearItems } from '../redux/slices/cartSlice'
 import CartEmpty from '../components/CartEmpty'
 import { useDispatch, useSelector } from 'react-redux'
+import { selectCart } from '../redux/slices/cartSlice'
 import CartItem from '../components/Cart/CartItem'
 const Cart = () => {
 
   const dispatch = useDispatch()
-  const { items } = useSelector(state => state.cartSlice)
+  const { items } = useSelector(selectCart)
   const totalCountOfPizza = items.reduce((currentObj, obj) => ({
     count: (currentObj.count || 0) + obj.count,
     amount: (currentObj.amount || 0) + obj.price * obj.count

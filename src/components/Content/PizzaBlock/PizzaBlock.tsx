@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v4 as getRandomKey } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../../../redux/slices/cartSlice'
+import { addItem, selectCartItemById } from '../../../redux/slices/cartSlice'
 type TTypeSize = number[]
 type TPizza = {
   "id"?: number,
@@ -21,8 +21,7 @@ const PizzaBlock = ({ imageUrl, title, sizes, price, types, id }: TPizza) => {
 
 
   const dispatch = useDispatch()
-  const countCard = useSelector((state: any) =>
-    state.cartSlice.items.find((obj: any) => obj.id === id))
+  const countCard = useSelector(selectCartItemById(id))
 
   const validCountCard = countCard ? countCard.count : 0
 
