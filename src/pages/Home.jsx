@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { v4 as getRandomKey } from 'uuid'
 import qs from 'qs'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
 import Catigories from '../components/Content/Catigories';
 import Sort, { popUpList } from '../components/Content/Sort';
@@ -87,7 +87,7 @@ const Home = () => {
           </div> : status === 'loading'
             ? [...new Array(10)].map(() => <Placeholder key={getRandomKey()} />)
             : pizzas
-              .map((pizza) => <PizzaBlock key={getRandomKey()} {...pizza} />)
+              .map((pizza) => <Link key={getRandomKey()} to={`pizza/${pizza.id}`}><PizzaBlock  {...pizza} /></Link>)
         }
       </div>
       {status === 'error' ? '' : <Pagination onChangePage={onChangePage} />}

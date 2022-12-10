@@ -46,3 +46,6 @@ export const selectCartItemById = (id) =>
 
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions
 export default cartSlice.reducer
+
+
+
