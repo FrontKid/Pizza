@@ -10,7 +10,7 @@ type TPizza = {
 
 const FullPizza: React.FC = () => {
 
-  const [pizza, setPizza] = useState<TPizza | undefined>()
+  const [pizza, setPizza] = useState<TPizza | null>(null)
   const navigate = useNavigate()
 
   const { id } = useParams<string>()

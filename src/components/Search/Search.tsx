@@ -1,28 +1,33 @@
-import { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setSearchValue } from '../../redux/slices/searchSlice'
 import { CiSearch } from 'react-icons/ci'
-import debounce from 'lodash.debounce'
 import { IoMdClose } from 'react-icons/io'
+
+import debounce from 'lodash.debounce'
+
+import { setSearchValue } from '../../redux/slices/searchSlice'
+
 import styles from './Search.module.scss'
-const Search = () => {
+
+const Search: React.FC = () => {
   const [value, setValue] = useState('')
-  const inputRef = useRef()
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const dispatch = useDispatch()
   const onClickCLear = () => {
     dispatch(setSearchValue(''))
     setValue('')
-    inputRef.current.focus()
+
+    inputRef.current?.focus()
   }
 
   const updateSearchValue = useCallback(
-    debounce(str => {
+    debounce((str: string) => {
       dispatch(setSearchValue(str))
     }, 750),
     [setSearchValue]
   )
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: any) => {
     setValue(e.currentTarget.value)
     updateSearchValue(e.currentTarget.value)
   }

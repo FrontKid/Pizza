@@ -3,20 +3,21 @@ import { v4 as getRandomKey } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem, selectCartItemById } from '../../../redux/slices/cartSlice'
 type TTypeSize = number[]
-type TPizza = {
-  "id"?: number,
+export type TPizza = {
+  "id"?: string,
   "imageUrl": string,
   "title": string,
   "types": TTypeSize,
   "sizes": TTypeSize,
   "price": number,
   "category"?: number,
-  "rating"?: number
+  "rating"?: number;
+  'count'?: number;
 }
 
-const pizzaType = ['тонкое', 'традиционное']
+const pizzaType: string[] = ['тонкое', 'традиционное']
 
-const PizzaBlock = ({ imageUrl, title, sizes, price, types, id }: TPizza) => {
+const PizzaBlock: React.FC<TPizza> = ({ imageUrl, title, sizes, price, types, id }) => {
 
 
 
@@ -36,7 +37,7 @@ const PizzaBlock = ({ imageUrl, title, sizes, price, types, id }: TPizza) => {
     })
   }
 
-  const addInCart = () => {
+  const addInCart = (): void => {
     dispatch(addItem(
       {
         id,

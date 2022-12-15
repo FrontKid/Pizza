@@ -1,15 +1,27 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as getRandomKey } from 'uuid'
-import { clearItems } from '../redux/slices/cartSlice'
-import CartEmpty from '../components/CartEmpty'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { clearItems } from '../redux/slices/cartSlice'
 import { selectCart } from '../redux/slices/cartSlice'
+
+import CartEmpty from '../components/CartEmpty'
 import CartItem from '../components/Cart/CartItem'
-const Cart = () => {
+
+import { TCartItem } from '../components/Cart/CartItem'
+
+type TTotalPizzaCount = {
+  count: number;
+  amount: number;
+}
+
+const Cart: React.FC = () => {
 
   const dispatch = useDispatch()
   const { items } = useSelector(selectCart)
-  const totalCountOfPizza = items.reduce((currentObj, obj) => ({
+
+  const totalCountOfPizza = items.reduce((currentObj: TTotalPizzaCount, obj: any) => ({
     count: (currentObj.count || 0) + obj.count,
     amount: (currentObj.amount || 0) + obj.price * obj.count
   }), {})
@@ -90,7 +102,7 @@ const Cart = () => {
           </div>
           <div className="content__items">
             {
-              items.map(item => <CartItem key={getRandomKey()} {...item} />)
+              items.map((item: TCartItem) => <CartItem key={getRandomKey()} {...item} />)
             }
           </div>
           <div className="cart__bottom">

@@ -1,3 +1,4 @@
+import React from 'react'
 import { v4 as getRandomKey } from 'uuid'
 const categories: string[] = [
   'Все',
@@ -13,7 +14,7 @@ export type TCategories = {
   onClickCategory: any
 }
 
-const Catigories = ({ categoryId, onClickCategory }: TCategories) => {
+const Catigories: React.FC<TCategories> = ({ categoryId, onClickCategory }) => {
 
   return (
     <div className="categories">

@@ -1,6 +1,19 @@
+import React from 'react'
 import { useDispatch } from 'react-redux'
+
 import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice'
-const CartItem = ({ id = 0, title = '', type = 0, size = 0, price = 0, count = 0, imageUrl = 0 }) => {
+
+export type TCartItem = {
+  id: string;
+  title: string;
+  type: number;
+  size: number;
+  price: number;
+  count: number;
+  imageUrl: string
+}
+
+const CartItem: React.FC<TCartItem> = ({ id = '', title = '', type = 0, size = 0, price = 0, count = 0, imageUrl = '' }) => {
   const dispatch = useDispatch()
 
   const addAdditionalPizza = () => {
