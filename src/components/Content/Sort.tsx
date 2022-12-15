@@ -2,14 +2,11 @@ import { v4 as getRandomKey } from 'uuid'
 import React, { useEffect, useRef, useState } from "react"
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setSortType } from '../../redux/slices/filterSlice'
+import { setSortType, TSortFilter } from '../../redux/slices/filterSlice'
 
-type TPopUpList = {
-  name: string;
-  sort: string;
-}
 
-export const popUpList: TPopUpList[] = [
+
+export const popUpList: TSortFilter[] = [
   { name: 'популярности (DESC)', sort: 'rating' },
   { name: 'популярности (ASC)', sort: '-rating' },
   { name: 'цене (DESC)', sort: 'price' },
@@ -26,9 +23,8 @@ const Sort: React.FC = () => {
   const sort = useSelector((state: any) => state.filterReducer.sort)
   const [isVissible, setIsVissible] = useState(false)
   const sortArea = useRef<HTMLDivElement | null>(null)
-  const clickedListItem = (obj: TPopUpList) => {
-    console.log(obj);
 
+  const clickedListItem = (obj: TSortFilter) => {
     dispatch(setSortType(obj))
     setIsVissible(false)
   }

@@ -3,24 +3,24 @@ import { useDispatch } from 'react-redux'
 
 import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice'
 
-export type TCartItem = {
+type TCartItem = {
   id: string;
   title: string;
-  type: number;
+  type: string;
   size: number;
   price: number;
   count: number;
   imageUrl: string
 }
 
-const CartItem: React.FC<TCartItem> = ({ id = '', title = '', type = 0, size = 0, price = 0, count = 0, imageUrl = '' }) => {
+const CartItem: React.FC<TCartItem> = ({ id = '', title = '', type = '', size = 0, price = 0, count = 0, imageUrl = '' }) => {
   const dispatch = useDispatch()
 
   const addAdditionalPizza = () => {
     dispatch(addItem(
       {
         id,
-      }
+      } as TCartItem
     ))
   }
   const deleteAdditionalPizza = () => {

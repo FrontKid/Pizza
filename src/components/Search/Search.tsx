@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { CiSearch } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
@@ -20,11 +20,11 @@ const Search: React.FC = () => {
     inputRef.current?.focus()
   }
 
-  const updateSearchValue = useCallback(
-    debounce((str: string) => {
+  const updateSearchValue = useMemo(() =>
+    debounce((str: string) =>
       dispatch(setSearchValue(str))
-    }, 750),
-    [setSearchValue]
+      , 750),
+    [dispatch]
   )
 
   const onChangeInput = (e: any) => {

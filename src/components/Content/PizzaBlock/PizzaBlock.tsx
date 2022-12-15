@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { v4 as getRandomKey } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, selectCartItemById } from '../../../redux/slices/cartSlice'
+import { addItem, selectCartItemById, TCartItem } from '../../../redux/slices/cartSlice'
+import { Link } from 'react-router-dom'
 type TTypeSize = number[]
 export type TPizza = {
-  "id"?: string,
+  "id": string,
   "imageUrl": string,
   "title": string,
   "types": TTypeSize,
   "sizes": TTypeSize,
   "price": number,
-  "category"?: number,
-  "rating"?: number;
+  "category": number,
+  "rating": number;
   'count'?: number;
 }
 
@@ -38,16 +39,17 @@ const PizzaBlock: React.FC<TPizza> = ({ imageUrl, title, sizes, price, types, id
   }
 
   const addInCart = (): void => {
-    dispatch(addItem(
-      {
-        id,
-        price,
-        title,
-        imageUrl,
-        type: pizzaType[activeSelect.pizzaTypeActive],
-        size: sizes[activeSelect.pizzaSizeActive],
-      }
-    ))
+    const Item: TCartItem = {
+      id,
+      price,
+      title,
+      imageUrl,
+      type: pizzaType[activeSelect.pizzaTypeActive],
+      size: sizes[activeSelect.pizzaSizeActive],
+      count: 0,
+    }
+
+    dispatch(addItem(Item))
   }
   const getSize = (index: number): void => {
     setActiveSelect({
@@ -58,12 +60,14 @@ const PizzaBlock: React.FC<TPizza> = ({ imageUrl, title, sizes, price, types, id
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={imageUrl}
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">{title}</h4>
+      <Link key={getRandomKey()} to={`pizza/${id}`}>
+        <img
+          className="pizza-block__image"
+          src={imageUrl}
+          alt="Pizza"
+        />
+        <h4 className="pizza-block__title">{title}</h4>
+      </Link>
       <div className="pizza-block__selector">
         <ul>
           {types.map((typeIndex, i) => (

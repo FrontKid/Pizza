@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useCallback, useRef } from 'react';
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { v4 as getRandomKey } from 'uuid'
 import qs from 'qs'
@@ -12,11 +12,12 @@ import Pagination from '../components/Pagination/Pagination';
 import Sort, { popUpList } from '../components/Content/Sort';
 
 import { filterSliceSelector, setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectorPizzaSlice } from '../redux/slices/pizzaSlice';
+import { fetchPizzas, selectorPizzaSlice, TFetchPizza } from '../redux/slices/pizzaSlice';
 import { selectorSerachSlice } from '../redux/slices/searchSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const isSearch = useRef(false)
   const isMounted = useRef(false)
@@ -25,27 +26,30 @@ const Home: React.FC = () => {
   const { categoryId, sort, pageCount } = useSelector(filterSliceSelector)
   const { searchValue } = useSelector(selectorSerachSlice)
 
-  const getPizzas = async () => {
-    //@ts-ignore
+  const getPizzas = useCallback(async () => {
+
     dispatch(fetchPizzas({
       sort,
       pageCount,
       categoryId,
-      searchValue
+      searchValue,
+      sortProperty: ''
     }))
-  }
+  }, [categoryId, dispatch, pageCount, searchValue, sort])
 
   useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1))
+      const params = (qs.parse(window.location.search.substring(1)) as unknown) as TFetchPizza
+
       const sort = popUpList.find(obj => obj.sort === params.sortProperty)
-      dispatch(setFilters({
-        ...params,
-        sort
-      }))
+
+      if (sort) {
+        params.sort = sort
+      }
+      dispatch(setFilters(params))
       isSearch.current = true
     }
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -54,7 +58,7 @@ const Home: React.FC = () => {
     }
     isSearch.current = false
 
-  }, [categoryId, sort, searchValue, pageCount])
+  }, [categoryId, sort, searchValue, pageCount, dispatch, getPizzas])
 
   useEffect(() => {
     if (isMounted.current) {
@@ -66,8 +70,11 @@ const Home: React.FC = () => {
 
       navigate(`?${queryString}`)
     }
+    if (!window.location.search) {
+      dispatch(fetchPizzas({} as TFetchPizza))
+    }
     isMounted.current = true
-  }, [categoryId, sort, pageCount])
+  }, [categoryId, sort, pageCount, navigate, getPizzas, dispatch])
 
 
   const onChangePage = (page: number): void => {
@@ -93,7 +100,7 @@ const Home: React.FC = () => {
           </div> : status === 'loading'
             ? [...new Array(10)].map(() => <Placeholder key={getRandomKey()} />)
             : pizzas
-              .map((pizza: any) => <Link key={getRandomKey()} to={`pizza/${pizza.id}`}><PizzaBlock  {...pizza} /></Link>)
+              .map((pizza) => <PizzaBlock key={getRandomKey()}  {...pizza} />)
         }
       </div>
       {status === 'error' ? '' : <Pagination onChangePage={onChangePage} />}

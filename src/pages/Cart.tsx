@@ -9,19 +9,12 @@ import { selectCart } from '../redux/slices/cartSlice'
 import CartEmpty from '../components/CartEmpty'
 import CartItem from '../components/Cart/CartItem'
 
-import { TCartItem } from '../components/Cart/CartItem'
-
-type TTotalPizzaCount = {
-  count: number;
-  amount: number;
-}
-
 const Cart: React.FC = () => {
 
   const dispatch = useDispatch()
   const { items } = useSelector(selectCart)
 
-  const totalCountOfPizza = items.reduce((currentObj: TTotalPizzaCount, obj: any) => ({
+  const totalCountOfPizza = items.reduce((currentObj: any, obj) => ({
     count: (currentObj.count || 0) + obj.count,
     amount: (currentObj.amount || 0) + obj.price * obj.count
   }), {})
@@ -102,7 +95,7 @@ const Cart: React.FC = () => {
           </div>
           <div className="content__items">
             {
-              items.map((item: TCartItem) => <CartItem key={getRandomKey()} {...item} />)
+              items.map((item) => <CartItem key={getRandomKey()} {...item} />)
             }
           </div>
           <div className="cart__bottom">
