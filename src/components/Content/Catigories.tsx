@@ -16,7 +16,7 @@ export type TCategories = {
   onClickCategory: (i: number) => void
 }
 
-export const Catigories: React.FC<TCategories> = React.memo(({ categoryId, onClickCategory }) => (
+const Catigories: React.FC<TCategories> = React.memo(({ categoryId, onClickCategory }) => (
   <div className="categories">
     <ul>
       {categories.map((categorie, i) => (
@@ -28,3 +28,5 @@ export const Catigories: React.FC<TCategories> = React.memo(({ categoryId, onCli
     </ul>
   </div>
 ))
+
+export default Catigories
