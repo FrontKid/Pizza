@@ -13,11 +13,9 @@ import Search from '../Search/Search'
 const Header: React.FC = () => {
 
   const { totalPrice, items } = useSelector(selectCart)
-
   const totalCount = items.reduce((sum: number, item) => sum + item.count, 0)
   const location = useLocation()
   const isMounted = useRef<boolean>(false)
-
 
   useEffect(() => {
     if (isMounted.current) {
@@ -40,7 +38,9 @@ const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        {location.pathname !== '/cart' && <Search />}
+        {location.pathname !== '/cart'
+          && !location.pathname.includes('/pizza/')
+          && <Search />}
         <div className="header__cart">
           {location.pathname !== '/cart' &&
             <Link to="/cart" className="button button--cart">

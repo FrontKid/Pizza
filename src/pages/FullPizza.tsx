@@ -1,6 +1,6 @@
 //react
 import React, { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Link } from "react-router-dom"
 
 //axios
 import axios from "axios"
@@ -48,6 +48,12 @@ const FullPizza: React.FC = () => {
         deleniti consectetur, mollitia quasi laborum!
       </p>
       <h4>{pizza.price} грн</h4>
+      <Link to='/'>
+        <button
+          className="button button--outline button--add">
+          <span>Назад</span>
+        </button>
+      </Link>
     </div>
   )
 }

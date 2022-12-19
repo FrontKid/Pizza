@@ -99,7 +99,7 @@ const PizzaBlock: React.FC<TPizza> = ({ imageUrl, title, sizes, price, types, id
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{`от ${price} грн`}</div>
-        <div
+        <button
           className="button button--outline button--add"
           onClick={addInCart}
         >
@@ -117,7 +117,7 @@ const PizzaBlock: React.FC<TPizza> = ({ imageUrl, title, sizes, price, types, id
           </svg>
           <span>Добавить</span>
           {validCountCard > 0 && <i>{validCountCard}</i>}
-        </div>
+        </button>
       </div>
     </div>
   )

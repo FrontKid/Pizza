@@ -1,17 +1,22 @@
+//react
+import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
+//layouts
 import GeneralLayout from './layouts/GeneralLayout';
-import Cart from './pages/Cart';
+
+//pages
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import FullPizza from './pages/FullPizza';
 
 import './scss/app.scss';
 
+//dynamic pages
+const Cart = React.lazy(() => import(/* webpackChunkName: "Cart" */'./pages/Cart'))
+const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound" */'./pages/NotFound'))
+const FullPizza = React.lazy(() => import( /* webpackChunkName: "FullPizza" */'./pages/FullPizza'))
 
-function App() {
-
-  return (
+const App = () => (
+  <Suspense fallback={<div>Идет загрузка...</div>}>
     <Routes>
       <Route path='/' element={<GeneralLayout />}>
         <Route path="" element={<Home />} />
@@ -20,8 +25,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
-  );
-}
+  </Suspense>
+)
 
 export default App;
 
