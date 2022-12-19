@@ -1,8 +1,18 @@
+//react
 import { useState } from 'react'
 import { v4 as getRandomKey } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem, selectCartItemById, TCartItem } from '../../../redux/slices/cartSlice'
 import { Link } from 'react-router-dom'
+
+//slice
+import { addItem } from '../../../redux/slices/cart/slice'
+
+//selectors
+import { selectCartItemById } from '../../../redux/slices/cart/selectors'
+
+//types
+import { TCartItem } from '../../../redux/slices/cart/types'
+
 type TTypeSize = number[]
 export type TPizza = {
   "id": string,

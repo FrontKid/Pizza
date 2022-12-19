@@ -1,9 +1,12 @@
+//react
 import React from 'react'
 import ReactPaginate from 'react-paginate'
 import { useSelector } from 'react-redux'
 
-import { filterSliceSelector } from '../../redux/slices/filterSlice'
+//selectors
+import { filterSliceSelector } from '../../redux/slices/filter/selectors'
 
+//styles
 import styles from './Pagination.module.scss'
 
 

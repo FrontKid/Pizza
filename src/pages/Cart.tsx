@@ -1,11 +1,16 @@
+//react
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as getRandomKey } from 'uuid'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { clearItems } from '../redux/slices/cartSlice'
-import { selectCart } from '../redux/slices/cartSlice'
+//slice
+import { clearItems } from '../redux/slices/cart/slice'
 
+//selectors
+import { selectCart } from '../redux/slices/cart/selectors'
+
+//components
 import CartEmpty from '../components/CartEmpty'
 import CartItem from '../components/Cart/CartItem'
 

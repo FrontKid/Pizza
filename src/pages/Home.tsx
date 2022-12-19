@@ -1,19 +1,32 @@
+//react
 import React, { useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+//utilits
 import { v4 as getRandomKey } from 'uuid'
 import qs from 'qs'
 
+//components
 import Catigories from '../components/Content/Catigories';
 import PizzaBlock from '../components/Content/PizzaBlock/PizzaBlock';
 import Placeholder from '../components/Content/PizzaBlock/Placeholder';
 import Pagination from '../components/Pagination/Pagination';
 import Sort, { popUpList } from '../components/Content/Sort';
 
-import { filterSliceSelector, setCategoryId, setPageCount, setFilters } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectorPizzaSlice, TFetchPizza } from '../redux/slices/pizzaSlice';
-import { selectorSerachSlice } from '../redux/slices/searchSlice';
+//selectors
+import { filterSliceSelector } from '../redux/slices/filter/selectors';
+import { selectorPizzaSlice } from '../redux/slices/pizza/selectors';
+import { selectorSerachSlice } from '../redux/slices/search/selectors';
+
+//slices
+import { setCategoryId, setPageCount, setFilters } from '../redux/slices/filter/slice';
+import { fetchPizzas } from '../redux/slices/pizza/asyncActions';
+
+//types
+import { TFetchPizza } from '../redux/slices/pizza/types';
+
+//store
 import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
@@ -78,7 +91,7 @@ const Home: React.FC = () => {
 
   const onChangePage = useCallback((page: number): void => {
     dispatch(setPageCount(page))
-  }, [])
+  }, [dispatch])
 
   return (
     <div className='container'>

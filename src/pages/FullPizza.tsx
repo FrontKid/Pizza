@@ -1,5 +1,8 @@
+//react
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
+
+//axios
 import axios from "axios"
 
 type TPizza = {

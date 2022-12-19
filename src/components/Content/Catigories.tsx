@@ -1,5 +1,7 @@
+//react
 import React from 'react'
 import { v4 as getRandomKey } from 'uuid'
+
 const categories: string[] = [
   'Все',
   'Мясные',

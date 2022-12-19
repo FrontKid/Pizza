@@ -1,8 +1,11 @@
+//react
 import { v4 as getRandomKey } from 'uuid'
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch } from 'react-redux'
 
-import { setSortType, TSortFilter } from '../../redux/slices/filterSlice'
+
+import { setSortType } from '../../redux/slices/filter/slice'
+import { TSortFilter } from '../../redux/slices/filter/types'
 
 
 

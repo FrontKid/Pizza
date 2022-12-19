@@ -1,12 +1,16 @@
+//react
 import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { CiSearch } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
 
+//lodash
 import debounce from 'lodash.debounce'
 
-import { setSearchValue } from '../../redux/slices/searchSlice'
+//slice
+import { setSearchValue } from '../../redux/slices/search/slice'
 
+//styles
 import styles from './Search.module.scss'
 
 const Search: React.FC = () => {
