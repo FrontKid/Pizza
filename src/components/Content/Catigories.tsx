@@ -11,23 +11,20 @@ const categories: string[] = [
 
 export type TCategories = {
   categoryId: number,
-  onClickCategory: any
+  onClickCategory: (i: number) => void
 }
 
-const Catigories: React.FC<TCategories> = ({ categoryId, onClickCategory }) => {
-
-  return (
-    <div className="categories">
-      <ul>
-        {categories.map((categorie, i) => (
-          <li
-            key={getRandomKey()}
-            onClick={_ => onClickCategory(i)}
-            className={categoryId === i ? 'active' : ''}>{categorie}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+const Catigories: React.FC<TCategories> = React.memo(({ categoryId, onClickCategory }) => (
+  <div className="categories">
+    <ul>
+      {categories.map((categorie, i) => (
+        <li
+          key={getRandomKey()}
+          onClick={() => onClickCategory(i)}
+          className={categoryId === i ? 'active' : ''}>{categorie}</li>
+      ))}
+    </ul>
+  </div>
+))
 
 export default Catigories

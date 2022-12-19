@@ -14,7 +14,7 @@ export type TCartItem = {
 
 interface ICartSliceStates {
   totalPrice: number;
-  items: TCartItem[]
+  items: TCartItem[];
 }
 
 const initialState: ICartSliceStates = {
@@ -53,7 +53,8 @@ export const cartSlice = createSlice({
     clearItems(state) {
       state.items = []
       state.totalPrice = 0
-    }
+    },
+
   }
 })
 

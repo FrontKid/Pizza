@@ -76,16 +76,15 @@ const Home: React.FC = () => {
     isMounted.current = true
   }, [categoryId, sort, pageCount, navigate, getPizzas, dispatch])
 
-
-  const onChangePage = (page: number): void => {
+  const onChangePage = useCallback((page: number): void => {
     dispatch(setPageCount(page))
-  }
+  }, [])
 
   return (
     <div className='container'>
       <div className="content__top">
         <Catigories categoryId={categoryId} onClickCategory={(id: number) => dispatch(setCategoryId(id))} />
-        <Sort />
+        <Sort sort={sort} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

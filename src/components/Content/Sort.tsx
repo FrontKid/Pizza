@@ -1,6 +1,6 @@
 import { v4 as getRandomKey } from 'uuid'
 import React, { useEffect, useRef, useState } from "react"
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { setSortType, TSortFilter } from '../../redux/slices/filterSlice'
 
@@ -15,12 +15,13 @@ export const popUpList: TSortFilter[] = [
   { name: 'алфавиту (ASC)', sort: '-title' },
 ]
 
+type TPopUpSort = {
+  sort: TSortFilter;
+}
 
-
-const Sort: React.FC = () => {
+const Sort: React.FC<TPopUpSort> = React.memo(({ sort }) => {
 
   const dispatch = useDispatch()
-  const sort = useSelector((state: any) => state.filterReducer.sort)
   const [isVissible, setIsVissible] = useState(false)
   const sortArea = useRef<HTMLDivElement | null>(null)
 
@@ -77,6 +78,6 @@ const Sort: React.FC = () => {
         </div>)}
     </div>
   )
-}
+})
 
 export default Sort
