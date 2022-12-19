@@ -46,14 +46,13 @@ const Home: React.FC = () => {
       pageCount,
       categoryId,
       searchValue,
-      sortProperty: ''
+      sortProperty: '',
     }))
   }, [categoryId, dispatch, pageCount, searchValue, sort])
 
   useEffect(() => {
     if (window.location.search) {
       const params = (qs.parse(window.location.search.substring(1)) as unknown) as TFetchPizza
-
       const sort = popUpList.find(obj => obj.sort === params.sortProperty)
 
       if (sort) {
@@ -93,6 +92,8 @@ const Home: React.FC = () => {
     dispatch(setPageCount(page))
   }, [dispatch])
 
+  console.log(status);
+
   return (
     <div className='container'>
       <div className="content__top">
@@ -101,15 +102,15 @@ const Home: React.FC = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-
+        {status === 'error' && <div className='content__error-info'>
+          <h2>Произошла ошибка 😕</h2>
+          <p>
+            К сожалению не удалось загрузить питсы =(
+            Повторите попытку позже.
+          </p>
+        </div>}
         {
-          status === 'error' ? <div className='content__error-info'>
-            <h2>Произошла ошибка 😕</h2>
-            <p>
-              К сожалению не удалось загрузить питсы =(
-              Повторите попытку позже.
-            </p>
-          </div> : status === 'loading'
+          status === 'loading'
             ? [...new Array(10)].map(() => <Placeholder key={getRandomKey()} />)
             : pizzas
               .map((pizza) => <PizzaBlock key={getRandomKey()}  {...pizza} />)
