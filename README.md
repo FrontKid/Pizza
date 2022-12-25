@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-<!-- 11:16 https://www.youtube.com/watch?v=KvoWbHHBv88&t=5s -->
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Pizza restaurant
+
 
 ## Available Scripts
 

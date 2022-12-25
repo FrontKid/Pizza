@@ -92,8 +92,6 @@ const Home: React.FC = () => {
     dispatch(setPageCount(page))
   }, [dispatch])
 
-  console.log(status);
-
   return (
     <div className='container'>
       <div className="content__top">
