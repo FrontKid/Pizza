@@ -10,12 +10,12 @@ import { TSortFilter } from '../../redux/slices/filter/types'
 
 
 export const popUpList: TSortFilter[] = [
-  { name: 'популярности (DESC)', sort: 'rating' },
-  { name: 'популярности (ASC)', sort: '-rating' },
-  { name: 'цене (DESC)', sort: 'price' },
-  { name: 'цене (ASC)', sort: '-price' },
-  { name: 'алфавиту (DESC)', sort: 'title' },
-  { name: 'алфавиту (ASC)', sort: '-title' },
+  { name: 'популярности ↓', sort: 'rating' },
+  { name: 'популярности ↑', sort: '-rating' },
+  { name: 'цене ↓', sort: 'price' },
+  { name: 'цене ↑', sort: '-price' },
+  { name: 'алфавиту ↓', sort: 'title' },
+  { name: 'алфавиту ↑', sort: '-title' },
 ]
 
 type TPopUpSort = {
@@ -53,6 +53,7 @@ const Sort: React.FC<TPopUpSort> = React.memo(({ sort }) => {
       className="sort">
       <div className="sort__label">
         <svg
+          className={isVissible ? 'sort__arrow--down' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
